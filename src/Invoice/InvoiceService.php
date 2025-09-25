@@ -122,10 +122,16 @@ class InvoiceService
 
         $this->xmlService->setService('invoice.cancel');
         $this->xmlService->setData($entity->getXmlData());
+        
+        $response = $this->apiClient->post($this->xmlService->getXml());
 
-        $this->apiClient->post($this->xmlService->getXml());
+        $xml = new \SimpleXMLElement((string) $response->getBody());
 
-        return $entity;
+        if (!isset($xml->RESPONSE->INVOICE_ID)) {
+            throw new \RuntimeException('Could not get INVOICE_ID from Fastbill response after cancellation.');
+        }
+
+        return (int) $xml->RESPONSE->INVOICE_ID;
     }
 
     public function sendByEmailInvoice(
