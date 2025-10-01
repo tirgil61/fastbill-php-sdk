@@ -139,7 +139,7 @@ class InvoiceService
         RecipientEntity $recipient,
         ?string $subject = null,
         ?string $message = null,
-        bool $receiptConfirmation = false,
+        bool $receiptConfirmation = false
     ): string {
         $this->xmlService->setService('invoice.sendbyemail');
         $data['INVOICE_ID'] = $entity->invoiceId;
