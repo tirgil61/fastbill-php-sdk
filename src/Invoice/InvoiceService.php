@@ -116,7 +116,7 @@ class InvoiceService
         return $entity;
     }
 
-    public function cancelInvoice(InvoiceEntity $entity): InvoiceEntity
+    public function cancelInvoice(InvoiceEntity $entity): int
     {
         $this->checkErrors($this->validator->validateRequiredInvoiceId($entity));
 
